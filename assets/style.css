@@ -1,0 +1,212 @@
+/* ==========================================================================
+   LionDevelopment - Persian RTL Theme (Obsidian Forge)
+   Deploy-Ready CSS for Cloudflare Pages & Vanilla Web
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap');
+
+:root {
+  --color-bg: #121318;
+  --color-surface-lowest: #0d0e13;
+  --color-surface-low: #1a1b20;
+  --color-surface: #1e1f25;
+  --color-surface-high: #292a2f;
+  --color-surface-highest: #34343a;
+  --color-primary: #ffb59c;
+  --color-primary-container: #ff5708;
+  --color-secondary: #ffb4ab;
+  --color-secondary-container: #d70016;
+  --color-tertiary: #ffba20;
+  --color-on-surface: #e3e1e9;
+  --color-on-surface-variant: #e5beb2;
+  --color-outline: #5c4037;
+  --color-telegram: #229ed9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-bg);
+  color: var(--color-on-surface);
+  font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  direction: rtl;
+  text-align: right;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* Number & Code font lock */
+.font-mono-num,
+.code-font,
+code,
+pre,
+kbd,
+.version-chip {
+  font-family: 'JetBrains Mono', 'Space Grotesk', monospace;
+  direction: ltr;
+  display: inline-block;
+  unicode-bidi: isolate;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0d0e13;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #292a2f;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ff5708;
+}
+
+/* Glassmorphism & Borders */
+.glass-panel {
+  background: rgba(26, 27, 32, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-panel-elevated {
+  background: rgba(30, 31, 37, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 87, 8, 0.35);
+}
+
+/* Radiant glow effects */
+.glow-primary {
+  box-shadow: 0 0 25px rgba(255, 87, 8, 0.35);
+}
+
+.glow-primary-lg {
+  box-shadow: 0 0 40px rgba(255, 87, 8, 0.55);
+}
+
+.glow-telegram {
+  box-shadow: 0 0 25px rgba(34, 158, 217, 0.4);
+}
+
+.glow-gold {
+  box-shadow: 0 0 20px rgba(255, 186, 32, 0.3);
+}
+
+/* Hover transitions */
+.card-hover-fx {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-hover-fx:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 24px rgba(255, 87, 8, 0.2);
+}
+
+/* Terminal Line Numbers */
+.line-num {
+  color: rgba(227, 225, 233, 0.3);
+  user-select: none;
+  font-family: 'JetBrains Mono', monospace;
+  width: 2rem;
+  display: inline-block;
+  text-align: left;
+}
+
+/* Toast Message */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.toast {
+  background: #1a1b20;
+  color: #e3e1e9;
+  border: 1px solid #ff5708;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 87, 8, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastIn 0.3s ease forwards;
+  pointer-events: auto;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+/* Modal animation */
+.modal-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-dialog {
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-backdrop.active .modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+/* Telegram Button Specific Styling */
+.btn-telegram {
+  background: linear-gradient(135deg, #229ed9 0%, #1778a8 100%);
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(34, 158, 217, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-telegram:hover {
+  background: linear-gradient(135deg, #2db2f0 0%, #1d8bc2 100%);
+  box-shadow: 0 0 28px rgba(34, 158, 217, 0.6);
+  transform: translateY(-1px);
+}
