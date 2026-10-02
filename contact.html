@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html class="dark" dir="rtl" lang="fa">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>تماس و ثبت سفارش تلگرام | LionDevelopment</title>
+  <meta name="description" content="ارتباط با پشتیبانی و سفارش مستقیم اسکریپت‌های اختصاصی ماینکرفت از طریق تلگرام با امکان محاسبه آنلاین قیمت."/>
+  
+  <meta property="og:title" content="تماس و ثبت سفارش تلگرام | LionDevelopment"/>
+  <meta property="og:description" content="سفارش آنلاین اسکریپت‌های سرور ماینکرفت با پشتیبانی مستقیم تلگرام."/>
+  <meta property="og:type" content="website"/>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" rel="stylesheet"/>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "background": "#121318",
+            "surface-dim": "#121318",
+            "surface": "#121318",
+            "surface-bright": "#38393e",
+            "surface-container-lowest": "#0d0e13",
+            "surface-container-low": "#1a1b20",
+            "surface-container": "#1e1f25",
+            "surface-container-high": "#292a2f",
+            "surface-container-highest": "#34343a",
+            "primary": "#ffb59c",
+            "primary-container": "#ff5708",
+            "on-primary": "#5c1900",
+            "on-primary-container": "#ffffff",
+            "secondary": "#ffb4ab",
+            "secondary-container": "#d70016",
+            "tertiary": "#ffba20",
+            "tertiary-container": "#bc8700",
+            "on-surface": "#e3e1e9",
+            "on-surface-variant": "#e5beb2",
+            "telegram": "#229ed9"
+          },
+          fontFamily: {
+            sans: ['Vazirmatn', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            headline: ['Space Grotesk', 'Vazirmatn', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+
+<body class="bg-background font-sans text-on-surface antialiased selection:bg-primary-container selection:text-white">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest/80 backdrop-blur-xl border-b border-white/5 shadow-lg">
+    <div class="h-20 w-full max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-6">
+        <a class="flex items-center gap-3 group" href="index.html">
+          <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-primary-container to-secondary-container p-0.5 shadow-[0_0_15px_rgba(255,87,8,0.4)] flex items-center justify-center">
+            <span class="material-symbols-outlined text-white text-[24px]">local_fire_department</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xl font-bold tracking-tight text-white flex items-center gap-1.5 font-headline">
+              Lion<span class="text-primary-container">Development</span>
+              <span class="h-2 w-2 rounded-full bg-primary-container shadow-[0_0_8px_#ff5708]"></span>
+            </span>
+            <span class="text-[10px] text-primary tracking-widest uppercase font-mono">اسکریپت‌های سرور ماینکرفت</span>
+          </div>
+        </a>
+
+        <nav class="hidden xl:flex items-center gap-6 text-sm font-medium">
+          <a class="text-on-surface-variant hover:text-white transition-colors" href="index.html">صفحه اصلی</a>
+          <a class="text-on-surface-variant hover:text-white transition-colors" href="products.html">همه اسکریپت‌ها</a>
+          <a class="text-on-surface-variant hover:text-white transition-colors" href="products.html?tier=free">اسکریپت‌های رایگان</a>
+          <a class="text-on-surface-variant hover:text-white transition-colors" href="products.html?tier=premium">اسکریپت‌های پرمیوم</a>
+          <a class="text-on-surface-variant hover:text-white transition-colors" href="about.html">درباره ما</a>
+          <a class="text-primary-container font-bold border-b-2 border-primary-container pb-1" href="contact.html">تماس و سفارش</a>
+        </nav>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href="https://t.me/LionSkripts_Admin" target="_blank" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg btn-telegram font-bold text-xs shadow-md">
+          <span class="material-symbols-outlined text-[18px]">send</span>
+          <span class="hidden sm:inline">سفارش مستقیم تلگرام</span>
+        </a>
+
+        <button id="mobile-menu-toggle" type="button" class="xl:hidden p-2 rounded-lg bg-surface-container-low text-on-surface hover:text-white transition-colors">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-md">
+    <div class="fixed top-0 bottom-0 right-0 w-72 bg-surface-container-low p-6 shadow-2xl flex flex-col justify-between border-l border-white/10">
+      <div class="space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary-container">local_fire_department</span>
+            <span class="font-bold text-white">منوی اصلی</span>
+          </div>
+          <button id="mobile-menu-close" type="button" class="p-1 rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-3 font-medium text-sm">
+          <a class="px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-white" href="index.html">صفحه اصلی</a>
+          <a class="px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-white" href="products.html">همه اسکریپت‌ها</a>
+          <a class="px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-white" href="products.html?tier=free">اسکریپت‌های رایگان</a>
+          <a class="px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-white" href="products.html?tier=premium">اسکریپت‌های پرمیوم</a>
+          <a class="px-3 py-2 rounded-lg hover:bg-surface-container text-on-surface-variant hover:text-white" href="about.html">درباره ما و تیم</a>
+          <a class="px-3 py-2 rounded-lg bg-primary-container text-white font-bold" href="contact.html">تماس و سفارش تلگرام</a>
+        </nav>
+      </div>
+      <div class="pt-4 border-t border-white/10 space-y-2">
+        <a href="https://t.me/LionSkripts_Admin" target="_blank" class="w-full py-2.5 rounded-lg btn-telegram flex items-center justify-center gap-2 font-bold text-sm">
+          <span class="material-symbols-outlined text-sm">send</span>
+          <span>ارتباط با پشتیبان تلگرام</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <main class="w-full pt-28 pb-20 min-h-screen">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 space-y-16">
+      
+      <!-- Top Title -->
+      <div class="text-center max-w-2xl mx-auto space-y-3">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high text-telegram font-mono text-xs border border-telegram/20">
+          <span class="material-symbols-outlined text-[16px]">send</span>
+          <span>پشتیبانی و سفارش سریع تلگرام</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight">
+          ثبت سفارش اختصاصی و ارتباط با توسعه‌دهندگان
+        </h1>
+        <p class="text-xs md:text-sm text-on-surface-variant leading-relaxed">
+          برای خرید لایسنس، مشاوره راه‌اندازی سرور یا سفارش اسکریپت سفارشی، فرم زیر را پر کنید تا به صورت مستقیم به تلگرام هدایت شوید.
+        </p>
+      </div>
+
+      <!-- Quick Contact Channels Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Telegram Admin -->
+        <a href="https://t.me/LionSkripts_Admin" target="_blank" class="p-6 rounded-2xl bg-surface-container-low border border-white/5 hover:border-telegram/40 transition-all space-y-3 group">
+          <div class="w-12 h-12 rounded-xl bg-telegram/20 text-telegram flex items-center justify-center group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[28px]">support_agent</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-on-surface-variant font-mono uppercase">پشتیبانی و فروش لایسنس</span>
+            <h3 class="text-base font-bold text-white group-hover:text-telegram transition-colors">آیدی تلگرام ادمین</h3>
+          </div>
+          <div class="font-mono text-xs text-primary" dir="ltr">@LionSkripts_Admin</div>
+          <p class="text-xs text-on-surface-variant">پاسخگویی سریع کمتر از ۸ دقیقه برای سفارش و رفع اشکالات فنی.</p>
+        </a>
+
+        <!-- Telegram Channel -->
+        <a href="https://t.me/LionDevelopment" target="_blank" class="p-6 rounded-2xl bg-surface-container-low border border-white/5 hover:border-primary-container/40 transition-all space-y-3 group">
+          <div class="w-12 h-12 rounded-xl bg-primary-container/20 text-primary-container flex items-center justify-center group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[28px]">campaign</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-on-surface-variant font-mono uppercase">اخبار و آپدیت‌ها</span>
+            <h3 class="text-base font-bold text-white group-hover:text-primary transition-colors">کانال رسمی تلگرام</h3>
+          </div>
+          <div class="font-mono text-xs text-primary" dir="ltr">@LionDevelopment</div>
+          <p class="text-xs text-on-surface-variant">انتشار آخرین پچ‌ها، کانفیگ‌های نمونه و تخفیف‌های ویژه سرورداران.</p>
+        </a>
+
+        <!-- Discord Guild -->
+        <a href="https://discord.gg/liondevelopment" target="_blank" class="p-6 rounded-2xl bg-surface-container-low border border-white/5 hover:border-tertiary/40 transition-all space-y-3 group">
+          <div class="w-12 h-12 rounded-xl bg-tertiary/20 text-tertiary flex items-center justify-center group-hover:scale-105 transition-transform">
+            <span class="material-symbols-outlined text-[28px]">forum</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-on-surface-variant font-mono uppercase">اجتماع برنامه‌نویسان</span>
+            <h3 class="text-base font-bold text-white group-hover:text-tertiary transition-colors">سرور دیسکورد</h3>
+          </div>
+          <div class="font-mono text-xs text-tertiary" dir="ltr">discord.gg/liondevelopment</div>
+          <p class="text-xs text-on-surface-variant">اتاق‌های صوتی، بررسی لاگ‌های سرور و گفتگو با سایر مدیران.</p>
+        </a>
+
+      </div>
+
+      <!-- Two-Column Interactive Core: Commission Price Calculator + Direct Telegram Form -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        
+        <!-- Column 1: Commission Price Calculator -->
+        <div class="lg:col-span-5 rounded-2xl bg-surface-container-low p-6 md:p-8 border border-white/10 shadow-2xl space-y-6">
+          <div class="space-y-1 pb-4 border-b border-white/5">
+            <div class="flex items-center gap-2 text-primary">
+              <span class="material-symbols-outlined text-[24px]">calculate</span>
+              <h2 class="text-xl font-bold text-white">محاسبه‌گر آنلاین هزینه سفارش</h2>
+            </div>
+            <p class="text-xs text-on-surface-variant">
+              برآورد اولیه هزینه ساخت سیستم سفارشی شما بر اساس امکانات انتخابی:
+            </p>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <label class="block text-white font-medium mb-1.5">نوع پکیج و اسکلت اصلی پروژه:</label>
+              <select id="calc-type" class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-white border border-white/10 focus:border-primary-container focus:outline-none">
+                <option value="400000">اسکریپت پایه کاربردی (مثلاً کیت و پیام‌ها) - ۴۰۰,۰۰۰ تومان</option>
+                <option value="900000">سیستم پیشرفته (مانند اکونومی، بانک و رنک) - ۹۰۰,۰۰۰ تومان</option>
+                <option value="1800000">موتور کامل گیم‌پلی (مانند دانجن، کلن وار و RPG) - ۱,۸۰۰,۰۰۰ تومان</option>
+                <option value="3200000">زیرساخت کامل چند سروره شبکه (Bungee/Redis) - ۳,۲۰۰,۰۰۰ تومان</option>
+              </select>
+            </div>
+
+            <div class="space-y-2.5 pt-2">
+              <label class="block text-white font-medium">امکانات و ماژول‌های تکمیلی:</label>
+              
+              <label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-white/5">
+                <input type="checkbox" value="350000" class="calc-feature w-4 h-4 rounded accent-primary-container"/>
+                <div class="flex-1">
+                  <div class="text-white font-medium">اتصال به دیتابیس MySQL / SQLite</div>
+                  <div class="text-[10px] text-on-surface-variant">ذخیره دائمی و ایمن استت‌ها و اکانت‌ها</div>
+                </div>
+                <span class="font-mono text-primary text-[11px]">+ ۳۵۰ هزار تومان</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-white/5">
+                <input type="checkbox" value="250000" class="calc-feature w-4 h-4 rounded accent-primary-container"/>
+                <div class="flex-1">
+                  <div class="text-white font-medium">منوی گرافیکی متحرک (Custom Animated GUI)</div>
+                  <div class="text-[10px] text-on-surface-variant">صفحات اینونتوری با دکمه‌های اینتراکتیو</div>
+                </div>
+                <span class="font-mono text-primary text-[11px]">+ ۲۵۰ هزار تومان</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-white/5">
+                <input type="checkbox" value="300000" class="calc-feature w-4 h-4 rounded accent-primary-container"/>
+                <div class="flex-1">
+                  <div class="text-white font-medium">وب‌هوک هوشمند تلگرام و دیسکورد</div>
+                  <div class="text-[10px] text-on-surface-variant">ارسال لاگ ریدها، خریدها و گزارشات ادمین</div>
+                </div>
+                <span class="font-mono text-primary text-[11px]">+ ۳۰۰ هزار تومان</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-white/5">
+                <input type="checkbox" value="500000" class="calc-feature w-4 h-4 rounded accent-primary-container"/>
+                <div class="flex-1">
+                  <div class="text-white font-medium">کشینگ Redis و بالانس بین سرورها</div>
+                  <div class="text-[10px] text-on-surface-variant">هماهنگی چند سروره با سرعت فوق‌العاده بالا</div>
+                </div>
+                <span class="font-mono text-primary text-[11px]">+ ۵۰۰ هزار تومان</span>
+              </label>
+
+              <label class="flex items-center gap-3 p-2.5 rounded-lg bg-surface-container hover:bg-surface-container-high transition-colors cursor-pointer border border-white/5">
+                <input type="checkbox" value="400000" class="calc-feature w-4 h-4 rounded accent-primary-container"/>
+                <div class="flex-1">
+                  <div class="text-white font-medium">افکت‌های پارتیکلی سه‌بعدی و PacketEvents</div>
+                  <div class="text-[10px] text-on-surface-variant">جلوه‌های بصری سینمایی بدون اشغال پردازنده سرور</div>
+                </div>
+                <span class="font-mono text-primary text-[11px]">+ ۴۰۰ هزار تومان</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Total Display Box -->
+          <div class="p-4 rounded-xl bg-surface-container border border-primary-container/30 flex items-center justify-between">
+            <div>
+              <span class="text-[10px] text-on-surface-variant font-mono uppercase block">برآورد اولیه هزینه:</span>
+              <div id="calc-total-toman" class="text-xl font-bold text-tertiary font-mono">۴۰۰,۰۰۰ تومان</div>
+            </div>
+            <div id="calc-total-usd" class="font-mono text-xs text-primary font-bold">
+              (~ $5 USD)
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 2: Direct Telegram Commission Form -->
+        <div class="lg:col-span-7 rounded-2xl bg-surface-container p-6 md:p-8 border border-white/10 shadow-2xl space-y-6">
+          <div class="space-y-1 pb-4 border-b border-white/5">
+            <div class="flex items-center gap-2 text-telegram">
+              <span class="material-symbols-outlined text-[24px]">send</span>
+              <h2 class="text-xl font-bold text-white">فرم ارسال سفارش اختصاصی به تلگرام</h2>
+            </div>
+            <p class="text-xs text-on-surface-variant">
+              مشخصات سرور و سناریوی مدنظر خود را بنویسید تا پیام به صورت مرتب در تلگرام برای شروع کدنویسی ارسال شود.
+            </p>
+          </div>
+
+          <form id="customCommissionForm" class="space-y-4 text-xs" onsubmit="event.preventDefault(); sendCustomCommissionToTelegram();">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-medium">نام یا عنوان شما:</label>
+                <input type="text" id="custName" required placeholder="مثلاً: علیرضا" class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-white border border-white/10 focus:border-telegram focus:outline-none"/>
+              </div>
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-medium">آیدی تلگرام شما:</label>
+                <input type="text" id="custTelegram" dir="ltr" required placeholder="@YourTelegramUsername" class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-white border border-white/10 focus:border-telegram focus:outline-none font-mono"/>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-medium">نام سرور و نسخه ماینکرفت:</label>
+                <input type="text" id="custServer" placeholder="مثلاً: IronCraft • Paper 1.21.4" class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-white border border-white/10 focus:border-telegram focus:outline-none"/>
+              </div>
+              <div>
+                <label class="block text-on-surface-variant mb-1 font-medium">مدت زمان تحویل مدنظر:</label>
+                <select id="custDeadline" class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-white border border-white/10 focus:border-telegram focus:outline-none">
+                  <option value="عادی (۳ تا ۵ روز کاری)">عادی (۳ تا ۵ روز کاری)</option>
+                  <option value="فوری (۲۴ تا ۴۸ ساعت)">فوری (۲۴ تا ۴۸ ساعت)</option>
+                  <option value="پروژه بزرگ و جامع (۱ تا ۲ هفته)">پروژه بزرگ و جامع (۱ تا ۲ هفته)</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-on-surface-variant mb-1 font-medium">شرح کامل سناریو، ایونت‌ها و ویژگی‌های درخواستی:</label>
+              <textarea id="custDetails" rows="4" required placeholder="توضیح دهید اسکریپت دقیقاً چه کاری باید انجام دهد، چه دستوراتی داشته باشد و با چه افزونه‌هایی ادغام شود..." class="w-full px-3.5 py-2.5 rounded-lg bg-surface-container-lowest text-white border border-white/10 focus:border-telegram focus:outline-none leading-relaxed"></textarea>
+            </div>
+
+            <div class="pt-2">
+              <button type="submit" class="w-full py-3.5 rounded-lg btn-telegram font-bold text-sm flex items-center justify-center gap-2 shadow-lg">
+                <span class="material-symbols-outlined text-[20px]">send</span>
+                <span>تولید پیام و ارسال به تلگرام ادمین</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- FAQ Accordion Section -->
+      <section class="rounded-2xl bg-surface-container-low p-6 md:p-10 border border-white/10 shadow-xl space-y-6">
+        <div class="text-center max-w-2xl mx-auto space-y-2">
+          <span class="font-mono text-xs text-primary tracking-widest uppercase">سوالات قبل از خرید</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-white">پرسش‌های متداول شما</h2>
+        </div>
+
+        <div class="space-y-3 max-w-3xl mx-auto">
+          
+          <div class="faq-item rounded-xl bg-surface-container border border-white/5 overflow-hidden">
+            <button type="button" class="faq-trigger w-full p-4 text-right flex items-center justify-between text-white font-bold text-sm">
+              <span>۱. فایل اسکریپت پس از خرید چگونه تحویل داده می‌شود؟</span>
+              <span class="faq-icon material-symbols-outlined text-primary text-[20px]">expand_more</span>
+            </button>
+            <div class="faq-content hidden p-4 pt-0 text-xs text-on-surface-variant leading-relaxed border-t border-white/5">
+              بلافاصله پس از تایید رسید پرداخت در تلگرام، فایل سورس با فرمت <code class="text-primary font-mono">.sk</code> به همراه مستندات راه‌اندازی و فایل کانفیگ برای شما ارسال می‌شود. همچنین در صورت نیاز، نصب اولیه توسط برنامه‌نویس تیم به صورت رایگان انجام می‌شود.
+            </div>
+          </div>
+
+          <div class="faq-item rounded-xl bg-surface-container border border-white/5 overflow-hidden">
+            <button type="button" class="faq-trigger w-full p-4 text-right flex items-center justify-between text-white font-bold text-sm">
+              <span>۲. آیا اسکریپت‌ها با نسخه‌های آینده PaperMC (مثلاً ۱.۲۲) سازگار خواهند بود؟</span>
+              <span class="faq-icon material-symbols-outlined text-primary text-[20px]">expand_more</span>
+            </button>
+            <div class="faq-content hidden p-4 pt-0 text-xs text-on-surface-variant leading-relaxed border-t border-white/5">
+              بله، تمامی محصولات پرمیوم دارای لایسنس پشتیبانی و دریافت پچ‌های دائمی هستند. به محض انتشار بیلدهای جدید PaperMC و Skript، پچ هماهنگی در کانال خریداران قرار می‌گیرد.
+            </div>
+          </div>
+
+          <div class="faq-item rounded-xl bg-surface-container border border-white/5 overflow-hidden">
+            <button type="button" class="faq-trigger w-full p-4 text-right flex items-center justify-between text-white font-bold text-sm">
+              <span>۳. روش‌های پرداخت برای سرورداران داخل ایران چیست؟</span>
+              <span class="faq-icon material-symbols-outlined text-primary text-[20px]">expand_more</span>
+            </button>
+            <div class="faq-content hidden p-4 pt-0 text-xs text-on-surface-variant leading-relaxed border-t border-white/5">
+              شما می‌توانید از طریق کارت به کارت شتابی، لینک درگاه پرداخت مستقیم شاپرک (زرین‌پال / آیدی‌پی) یا از طریق ارز دیجیتال (تتر USDT روی شبکه ترون TRC20) پرداخت خود را انجام دهید.
+            </div>
+          </div>
+
+          <div class="faq-item rounded-xl bg-surface-container border border-white/5 overflow-hidden">
+            <button type="button" class="faq-trigger w-full p-4 text-right flex items-center justify-between text-white font-bold text-sm">
+              <span>۴. آیا امکان تغییر پیام‌ها و فارسی‌سازی کامل وجود دارد؟</span>
+              <span class="faq-icon material-symbols-outlined text-primary text-[20px]">expand_more</span>
+            </button>
+            <div class="faq-content hidden p-4 pt-0 text-xs text-on-surface-variant leading-relaxed border-t border-white/5">
+              بله! در ابتدای تمامی اسکریپت‌ها یک بخش استاندارد <code class="text-primary font-mono">options:</code> قرار دارد که تمامی پرفیکس‌ها، پیام‌های چت و تایتل‌ها قابل تغییر و سفارشی‌سازی هستند.
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full bg-surface-container-lowest border-t border-white/5 py-12">
+    <div class="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-on-surface-variant font-mono">
+      <p>© 2025-2026 LionDevelopment. تمام حقوق محفوظ است.</p>
+      <div class="flex items-center gap-4">
+        <a href="index.html" class="hover:text-white transition-colors">صفحه اصلی</a>
+        <a href="products.html" class="hover:text-white transition-colors">محصولات</a>
+        <a href="about.html" class="hover:text-white transition-colors">درباره ما</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+  <script src="assets/js/main.js"></script>
+
+  <!-- Custom Commission Form to Telegram Handler -->
+  <script>
+    function sendCustomCommissionToTelegram() {
+      const name = document.getElementById('custName')?.value || 'ناشناس';
+      const telegram = document.getElementById('custTelegram')?.value || '@ناشناس';
+      const server = document.getElementById('custServer')?.value || 'سرور ماینکرفت';
+      const deadline = document.getElementById('custDeadline')?.value || 'عادی';
+      const details = document.getElementById('custDetails')?.value || 'بدون جزئیات';
+      const estPrice = document.getElementById('calc-total-toman')?.textContent || '۴۰۰,۰۰۰ تومان';
+
+      const orderRef = 'CUSTOM-' + Math.floor(100000 + Math.random() * 900000);
+
+      const msg = `درخواست ساخت اسکریپت اختصاصی جدید (LionDevelopment):
+━━━━━━━━━━━━━━━━━━━━
+🔖 کد ارجاع: ${orderRef}
+👤 نام متقاضی: ${name}
+🆔 آیدی تلگرام: ${telegram}
+🌐 نام سرور و نسخه: ${server}
+⏳ زمان مدنظر: ${deadline}
+💰 برآورد تخمینی محاسبه‌گر: ${estPrice}
+━━━━━━━━━━━━━━━━━━━━
+📝 شرح پروژه و نیازمندی‌ها:
+${details}
+━━━━━━━━━━━━━━━━━━━━
+لطفاً زمان‌بندی دقیق و هماهنگی‌های لازم را اعلام بفرمایید.`;
+
+      const encoded = encodeURIComponent(msg);
+      const url = `https://t.me/LionSkripts_Admin?text=${encoded}`;
+
+      copyToClipboard(orderRef, `کد سفارش ${orderRef} ذخیره شد. در حال باز کردن تلگرام...`);
+      setTimeout(() => {
+        window.open(url, '_blank');
+      }, 700);
+    }
+  </script>
+</body>
+</html>
